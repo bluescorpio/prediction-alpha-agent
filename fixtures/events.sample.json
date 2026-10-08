@@ -1,0 +1,70 @@
+{
+  "data": [
+    {
+      "eventId": "sample-btc-100k",
+      "category": "crypto",
+      "metadata": {
+        "eventId": "sample-btc-100k",
+        "title": "样例：BTC 会否在结算前站上 100000 美元"
+      },
+      "markets": [
+        {
+          "marketId": "sample-btc-100k-yes",
+          "title": "样例：BTC 站上 100000 美元",
+          "status": "open",
+          "result": null,
+          "provider": "polymarket",
+          "pricing": {
+            "buyYesPriceUsd": 720000
+          }
+        }
+      ]
+    },
+    {
+      "eventId": "sample-sol-200",
+      "category": "crypto",
+      "metadata": {
+        "eventId": "sample-sol-200",
+        "title": "样例：SOL 会否在结算前站上 200 美元"
+      },
+      "markets": [
+        {
+          "marketId": "sample-sol-200-yes",
+          "title": "样例：SOL 站上 200 美元",
+          "status": "open",
+          "result": null,
+          "provider": "polymarket",
+          "pricing": {
+            "buyYesPriceUsd": 410000
+          }
+        }
+      ]
+    },
+    {
+      "eventId": "sample-eth-4000",
+      "category": "crypto",
+      "metadata": {
+        "eventId": "sample-eth-4000",
+        "title": "样例：ETH 会否在结算前站上 4000 美元"
+      },
+      "markets": [
+        {
+          "marketId": "sample-eth-4000-yes",
+          "title": "样例：ETH 站上 4000 美元",
+          "status": "open",
+          "result": null,
+          "provider": "polymarket",
+          "pricing": {
+            "buyYesPriceUsd": 380000
+          }
+        }
+      ]
+    }
+  ],
+  "pagination": {
+    "start": 0,
+    "end": 10,
+    "total": 3,
+    "hasNext": false
+  }
+}

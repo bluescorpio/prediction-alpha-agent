@@ -1,5 +1,5 @@
-import type { PmEvent, PmMarket } from "@paa/shared";
-import { assertKeys } from "./config.js";
+import type { PmEvent, PmMarket, PricePoint } from "@paa/shared";
+import { assertKeys, config } from "./config.js";
 import {
   getMarket,
   listEvents,
@@ -10,6 +10,7 @@ import {
   toPmMarket,
 } from "./jupiter-prediction.js";
 import { fetchLatestPrices } from "./jupiter-price.js";
+import { loadFixtureEvents } from "./fixture.js";
 import { fundingSource } from "./perp.js";
 import { save } from "./store.js";
 
@@ -52,14 +53,43 @@ async function loadEvents(): Promise<PmEvent[]> {
 }
 
 async function main() {
-  assertKeys();
+  const useFixtureOnly = config.ingest.source === "fixture";
+  if (!useFixtureOnly) assertKeys();
 
   console.log("[ingest] 拉取预测市场事件…");
-  const events = await loadEvents();
+  let events: PmEvent[];
+  let usingFixture = useFixtureOnly;
+  if (useFixtureOnly) {
+    console.warn("[ingest] WARN: INGEST_SOURCE=fixture，读取本地样例，跳过网络");
+    events = loadFixtureEvents();
+  } else {
+    try {
+      events = await loadEvents();
+    } catch (error) {
+      if (!config.ingest.fallbackFixture) throw error;
+      console.warn("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+      console.warn("[ingest] WARN: live 请求失败，已回退到 fixtures/events.sample.json。这不是实时数据。");
+      console.warn("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+      console.warn(error);
+      usingFixture = true;
+      events = loadFixtureEvents();
+    }
+  }
   save("events", events);
 
   console.log("[ingest] 拉取价格…");
-  const prices = await fetchLatestPrices(["SOL", "BTC"]);
+  let prices: PricePoint[] = [];
+  if (usingFixture) {
+    console.warn("[ingest] WARN: 使用 fixture，跳过现货价网络请求");
+  } else {
+    try {
+      prices = await fetchLatestPrices(["SOL", "BTC"]);
+    } catch (error) {
+      if (!config.ingest.fallbackFixture) throw error;
+      console.warn("[ingest] WARN: 现货价网络失败，已跳过，不阻塞事件落库");
+      console.warn(error);
+    }
+  }
   save("prices", prices);
 
   console.log("[ingest] 拉取资金费率…");

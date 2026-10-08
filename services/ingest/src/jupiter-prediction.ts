@@ -1,29 +1,25 @@
 import type { PmEvent, PmMarket } from "@paa/shared";
 import { config } from "./config.js";
+import { requestJson } from "./http.js";
 
 const BASE = config.jup.predictionBase;
 /** 官方定价：1,000,000 原生单位 = $1.00，也就是隐含概率 1。 */
 const MICRO_USD = 1_000_000;
 
 async function jup<T>(path: string, init?: RequestInit, exitOnError = false): Promise<T> {
-  const res = await fetch(`${BASE}${path}`, {
-    ...init,
-    headers: {
-      "x-api-key": config.jup.apiKey,
-      "content-type": "application/json",
-      ...(init?.headers ?? {}),
-    },
+  const headers = new Headers(init?.headers);
+  headers.set("x-api-key", config.jup.apiKey);
+  if (!headers.has("content-type")) headers.set("content-type", "application/json");
+  const headerRecord: Record<string, string> = {};
+  headers.forEach((value, key) => {
+    headerRecord[key] = value;
   });
-  if (!res.ok) {
-    const body = await res.text();
-    if (exitOnError) {
-      console.error(`[ingest] ${path} status=${res.status}`);
-      console.error(body);
-      process.exit(1);
-    }
-    throw new Error(`Jupiter ${path} -> ${res.status} ${body}`);
-  }
-  return (await res.json()) as T;
+  return requestJson(`${BASE}${path}`, {
+    method: init?.method,
+    headers: headerRecord,
+    body: typeof init?.body === "string" ? init.body : undefined,
+    exitOnHttpError: exitOnError,
+  }) as Promise<T>;
 }
 
 export type PmCategory =

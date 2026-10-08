@@ -1,5 +1,6 @@
 import type { PricePoint } from "@paa/shared";
 import { config } from "./config.js";
+import { requestJson } from "./http.js";
 
 /** 官方 Price API V3：GET /price/v3?ids={mints}，响应按 mint 做 key，价格字段是 usdPrice。 */
 const PRICE_URL = "https://api.jup.ag/price/v3";
@@ -21,16 +22,10 @@ function isRecord(value: unknown): value is Record<string, unknown> {
 }
 
 async function jupGet(url: string): Promise<unknown> {
-  const response = await fetch(url, {
+  return requestJson(url, {
     headers: { "x-api-key": config.jup.apiKey },
+    exitOnHttpError: true,
   });
-  if (!response.ok) {
-    const body = await response.text();
-    console.error(`[price] ${url} status=${response.status}`);
-    console.error(body);
-    throw new Error(`Jupiter price ${response.status}`);
-  }
-  return response.json() as Promise<unknown>;
 }
 
 function normalizeSymbol(symbol: string): string {
