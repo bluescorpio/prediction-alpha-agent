@@ -1,4 +1,9 @@
-import "dotenv/config";
+import { config as loadEnv } from "dotenv";
+import { dirname, resolve } from "node:path";
+import { fileURLToPath } from "node:url";
+
+// pnpm --filter 的工作目录是 services/ingest，密钥放在仓库根的 .env。
+loadEnv({ path: resolve(dirname(fileURLToPath(import.meta.url)), "../../..", ".env") });
 
 export const config = {
   rpcUrl: process.env.RPC_URL ?? "https://api.devnet.solana.com",
@@ -8,7 +13,8 @@ export const config = {
       process.env.JUP_PREDICTION_BASE ?? "https://api.jup.ag/prediction/v1",
   },
   pyth: {
-    hermesUrl: process.env.PYTH_HERMES_URL ?? "",
+    // 官方升级后的 Hermes 根地址，路径接 /v2/updates/price/latest
+    hermesUrl: process.env.PYTH_HERMES_URL || "https://pyth.dourolabs.app/hermes",
     apiKey: process.env.PYTH_API_KEY ?? "",
   },
   perp: {

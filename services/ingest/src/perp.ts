@@ -14,8 +14,9 @@ export interface FundingSource {
   fetchFundingRates(symbols: string[]): Promise<FundingPoint[]>;
 }
 
-const placeholderSource: FundingSource = {
+const mockSource: FundingSource = {
   async fetchFundingRates(symbols) {
+    console.warn("[perp] MOCK 资金费率。Jupiter Perps API 仍是占位，这些数字不是真实行情");
     return symbols.map((symbol) => ({
       symbol,
       fundingRate: 0,
@@ -26,5 +27,5 @@ const placeholderSource: FundingSource = {
 
 export const fundingSource: FundingSource =
   config.perp.source === "placeholder"
-    ? placeholderSource
-    : placeholderSource; // TODO: 新增真实实现并在此分支返回
+    ? mockSource
+    : mockSource; // TODO: 新增真实实现并在此分支返回
