@@ -5,7 +5,7 @@
   "scripts": {
     "ingest": "pnpm --filter @paa/ingest exec tsx src/index.ts",
     "signals": "pnpm --filter @paa/signals exec tsx src/index.ts",
-    "narrate": "pnpm --filter @paa/narrator dev",
+    "narrate": "pnpm --filter @paa/narrator exec tsx src/cli.ts",
     "web": "pnpm --filter @paa/web dev",
     "dev": "pnpm -r --parallel dev",
     "typecheck": "tsc --noEmit"

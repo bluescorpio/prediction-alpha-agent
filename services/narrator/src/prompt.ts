@@ -15,7 +15,7 @@ export function buildUserPrompt(signal: Signal): string {
 {
   "event": string,
   "marketRef": { "provider": string, "marketId": string },
-  "signalType": string,
+  "signalType": "cross_market_divergence" | "crowding_warning" | "unreacted_window",
   "direction": string,
   "confidence": number,
   "evidence": string[],
@@ -23,7 +23,9 @@ export function buildUserPrompt(signal: Signal): string {
   "suggestedAction": string,
   "riskNotes": string,
   "generatedAt": number
-}`;
+}
+字段必须完整：confidence 取 0 到 1，evidence 为非空字符串数组，generatedAt 为 Unix 毫秒时间戳。
+historicalAnalog 若输入没有历史事实，写明未提供，不要编造。`;
 }
 
 export type NarratorOutput = IntelCard;
