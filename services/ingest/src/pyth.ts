@@ -28,6 +28,7 @@ function resolveFeed(input: string): { feedId: string; symbol: string } | null {
 }
 
 function mockPrices(feeds: { feedId: string; symbol: string }[]): PricePoint[] {
+  // TODO: 填上 PYTH_API_KEY 后走 Hermes /v2/updates/price/latest，删掉这份占位。
   console.warn("[pyth] MOCK 未配置 PYTH_API_KEY，下面的价格是占位，不是行情");
   return feeds.map((feed) => ({
     feedId: feed.feedId,

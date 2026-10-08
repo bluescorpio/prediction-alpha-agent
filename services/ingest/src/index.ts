@@ -9,7 +9,7 @@ import {
   toPmEvent,
   toPmMarket,
 } from "./jupiter-prediction.js";
-import { fetchLatestPrices } from "./pyth.js";
+import { fetchLatestPrices } from "./jupiter-price.js";
 import { fundingSource } from "./perp.js";
 import { save } from "./store.js";
 
@@ -59,7 +59,7 @@ async function main() {
   save("events", events);
 
   console.log("[ingest] 拉取价格…");
-  const prices = await fetchLatestPrices(["SOL/USD", "BTC/USD"]);
+  const prices = await fetchLatestPrices(["SOL", "BTC"]);
   save("prices", prices);
 
   console.log("[ingest] 拉取资金费率…");
