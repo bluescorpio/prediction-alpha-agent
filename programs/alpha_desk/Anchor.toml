@@ -1,0 +1,6 @@
+[programs.devnet]
+alpha_desk = "11111111111111111111111111111111"  # TODO: 替换为 deploy 后的 program id
+
+[provider]
+cluster = "devnet"
+wallet = "~/.config/solana/id.json"

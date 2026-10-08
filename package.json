@@ -1,0 +1,19 @@
+{
+  "name": "prediction-alpha-agent",
+  "private": true,
+  "packageManager": "pnpm@9.0.0",
+  "scripts": {
+    "ingest": "pnpm --filter @paa/ingest dev",
+    "signals": "pnpm --filter @paa/signals dev",
+    "narrate": "pnpm --filter @paa/narrator dev",
+    "web": "pnpm --filter @paa/web dev",
+    "dev": "pnpm -r --parallel dev",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "typescript": "^5.6.0"
+  }
+}
