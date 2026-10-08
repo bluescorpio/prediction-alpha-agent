@@ -3,8 +3,8 @@
   "private": true,
   "packageManager": "pnpm@9.0.0",
   "scripts": {
-    "ingest": "pnpm --filter @paa/ingest dev",
-    "signals": "pnpm --filter @paa/signals dev",
+    "ingest": "pnpm --filter @paa/ingest exec tsx src/index.ts",
+    "signals": "pnpm --filter @paa/signals exec tsx src/index.ts",
     "narrate": "pnpm --filter @paa/narrator dev",
     "web": "pnpm --filter @paa/web dev",
     "dev": "pnpm -r --parallel dev",

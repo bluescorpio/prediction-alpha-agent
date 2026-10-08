@@ -1,0 +1,20 @@
+[
+  {
+    "feedId": "sample-btc",
+    "symbol": "BTC",
+    "price": 65000,
+    "ts": 0
+  },
+  {
+    "feedId": "sample-sol",
+    "symbol": "SOL",
+    "price": 150,
+    "ts": 0
+  },
+  {
+    "feedId": "sample-eth",
+    "symbol": "ETH",
+    "price": 2500,
+    "ts": 0
+  }
+]
