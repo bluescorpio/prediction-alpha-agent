@@ -1,0 +1,36 @@
+---
+description: Prediction Alpha Agent — 项目全局规则
+alwaysApply: true
+---
+
+# 项目
+Solana 黑客松项目「Prediction Alpha Agent」：把预测市场赔率与永续定价的错价，变成可执行、可验证的 AI 信号。
+先读 docs/PRD.md 与 docs/SCAFFOLD.md，再动手。冲突时以这两份文档为准。
+
+# 技术栈
+- 语言：TypeScript（ESM）+ Rust
+- 包管理：pnpm workspace（单仓多包）
+- 前端：Next.js + React
+- 链上：Anchor（Solana）
+- 数据：Jupiter Prediction API、Pyth、Jupiter Perps / Drift
+
+# 已核实的接口（只能用这些，不得臆造）
+- Jupiter Prediction API：base `https://api.jup.ag/prediction/v1`，请求头 `x-api-key`
+  - GET /events（可按 category / filter=new|live|trending / provider=polymarket|kalshi）
+  - GET /events/search?query=、GET /events/{id}、GET /markets/{id}
+  - POST /orders（返回未签名交易）、GET /positions?ownerPubkey=
+  - 定价：0.01–0.99 即隐含概率；金额原生单位 1,000,000 = $1.00
+- Pyth：链上 pull oracle（阅读 PriceUpdateV2）；链下走 Hermes（**需要 API Key**）
+
+# 硬性约束
+1. 不得编造 API 端点、字段、库用法；不确定就先问，或先核对官方文档。
+2. 密钥一律从 .env 读；不得硬编码，不得提交 .env 或钱包私钥。
+3. 改动后必须运行相关命令（pnpm / tsc --noEmit / cargo test / anchor test）并报告结果。
+4. 一次只做一件事；完成后先说明「改了什么 + 怎么验证」，再等下一步指令。
+5. 版本相关（Anchor / Solana CLI / Rust / Node）先对照官方 Version Compatibility Matrix 再改。
+6. 代码注释与提交信息用中文，变量名用英文。
+
+# 代码风格
+- TypeScript strict；文件用 .ts/.tsx；模块用 ESM（import 带 .js 后缀）。
+- 每个 services/* 保持「接口与实现分离」，方便以后替换数据源。
+- 任何占位实现都要留 `// TODO:` 注明原因与下一步。
