@@ -1,0 +1,16 @@
+[features]
+resolution = true
+skip-lint = false
+
+[programs.localnet]
+alpha_desk = "5L7SHJT5uK59tFyYNzuA7qrGorxyEwcXur4Gi28HhyYh"
+
+[programs.devnet]
+alpha_desk = "5L7SHJT5uK59tFyYNzuA7qrGorxyEwcXur4Gi28HhyYh"
+
+[provider]
+cluster = "Localnet"
+wallet = "~/.config/solana/id.json"
+
+[scripts]
+test = "pnpm exec ts-mocha -p ./programs/alpha_desk/tsconfig.json -t 1000000 programs/alpha_desk/tests/alpha_desk.ts"

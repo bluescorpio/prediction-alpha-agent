@@ -3,6 +3,9 @@ node_modules/
 .data/
 dist/
 target/
+test-ledger/
+.anchor/
+*-keypair.json
 .next/
 .DS_Store
 .pnpm-store/

@@ -1,7 +1,6 @@
 use anchor_lang::prelude::*;
 
-// TODO: 用 `anchor keys list` 生成后替换
-declare_id!("11111111111111111111111111111111");
+declare_id!("5L7SHJT5uK59tFyYNzuA7qrGorxyEwcXur4Gi28HhyYh");
 
 #[program]
 pub mod alpha_desk {
