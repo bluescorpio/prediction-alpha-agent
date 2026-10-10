@@ -1,0 +1,42 @@
+name: deploy-alpha-desk-devnet
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Install Solana CLI   # 版本钉成你本地能编过的那个 1.18.x
+        run: |
+          sh -c "$(curl -sSfL https://release.anza.xyz/v1.18.26/install)"
+          echo "$HOME/.local/share/solana/install/active_release/bin" >> "$GITHUB_PATH"
+
+      - name: Install Anchor 0.30.1
+        run: |
+          cargo install --git https://github.com/coral-xyz/anchor avm --force
+          avm install 0.30.1
+          avm use 0.30.1
+
+      - name: Restore wallets
+        run: |
+          mkdir -p ~/.config/solana target/deploy
+          echo "${{ secrets.DEPLOY_KEYPAIR }}"  > ~/.config/solana/id.json
+          echo "${{ secrets.PROGRAM_KEYPAIR }}" > target/deploy/alpha_desk-keypair.json
+          solana config set --url devnet
+
+      - name: Build (skip IDL, avoid nightly)
+        run: anchor build --no-idl
+
+      - name: Deploy
+        run: |
+          solana program deploy target/deploy/alpha_desk.so \
+            --program-id target/deploy/alpha_desk-keypair.json \
+            --url devnet
+
+      - name: Verify
+        run: solana program show 5L7SHJT5uK59tFyYNzuA7qrGorxyEwcXur4Gi28HhyYh --url devnet
