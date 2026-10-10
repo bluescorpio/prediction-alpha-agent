@@ -1,8 +1,7 @@
-// 脚手架写的是 ../../../services，从 app/ 出发少一层，这里改到仓库根。
-import { load } from "../../../../services/ingest/src/store.js"; // TODO: 改为读后端 API
+import { readSignals } from "../lib/data";
 
-export default function Home() {
-  const signals = load<{ id: string; eventRef: { question: string } }>("signals");
+export default async function Home() {
+  const signals = await readSignals();
   return (
     <main style={{ maxWidth: 760, margin: "40px auto", fontFamily: "system-ui" }}>
       <h1>Prediction Alpha Agent</h1>
