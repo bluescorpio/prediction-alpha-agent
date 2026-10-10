@@ -35,7 +35,7 @@ Jupiter Prediction API · Pyth Price Feeds · Jupiter Perps / Drift
 - C 事件驱动未反应窗口：预测市场已跳变、永续未反应
 
 ## 链上
-AlphaDesk Program（devnet）：TODO 程序地址
+AlphaDesk Program ID：`5L7SHJT5uK59tFyYNzuA7qrGorxyEwcXur4Gi28HhyYh`（devnet 已部署）
 
 ## 路线图 / 赛后计划
 TODO：说明这个项目为什么不会停在 hackathon
