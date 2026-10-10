@@ -1,3 +1,4 @@
+import { WalletPanel } from "../components/WalletPanel";
 import { readSignals } from "../lib/data";
 
 export default async function Home() {
@@ -6,6 +7,7 @@ export default async function Home() {
     <main style={{ maxWidth: 760, margin: "40px auto", fontFamily: "system-ui" }}>
       <h1>Prediction Alpha Agent</h1>
       <p>把预测市场与永续定价的分歧，变成可执行、可验证的信号。</p>
+      <WalletPanel />
       <h2>信号列表</h2>
       {signals.length === 0 ? (
         <p style={{ color: "#888" }}>暂无信号。先运行 ingest 与 signals。</p>
