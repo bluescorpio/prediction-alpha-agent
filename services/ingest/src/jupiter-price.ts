@@ -15,6 +15,7 @@ const SOL_MINT = "So11111111111111111111111111111111111111112";
 
 const DOCUMENTED_MINTS: Record<string, string> = {
   SOL: SOL_MINT,
+  BTC: "3NZ9JMVBmGAqocybic2c7LQCJScmgsAZ6vQqTDzcqmJh", // Wormhole「Wrapped BTC (Portal)」，Solana 主流 BTC 代理
 };
 
 function isRecord(value: unknown): value is Record<string, unknown> {
