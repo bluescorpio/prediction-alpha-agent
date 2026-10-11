@@ -1,0 +1,273 @@
+{
+  "address": "5L7SHJT5uK59tFyYNzuA7qrGorxyEwcXur4Gi28HhyYh",
+  "metadata": {
+    "name": "alpha_desk",
+    "version": "0.1.0",
+    "spec": "0.1.0"
+  },
+  "instructions": [
+    {
+      "name": "follow_signal",
+      "docs": [
+        "用户跟随某信号"
+      ],
+      "discriminator": [
+        67,
+        129,
+        206,
+        251,
+        107,
+        50,
+        151,
+        199
+      ],
+      "accounts": [
+        {
+          "name": "signal",
+          "writable": true
+        },
+        {
+          "name": "follow",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  102,
+                  111,
+                  108,
+                  108,
+                  111,
+                  119
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "signal"
+              },
+              {
+                "kind": "account",
+                "path": "user"
+              }
+            ]
+          }
+        },
+        {
+          "name": "user",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "record_outcome",
+      "docs": [
+        "事件结算后写入结果，累积战绩"
+      ],
+      "discriminator": [
+        130,
+        121,
+        6,
+        102,
+        151,
+        160,
+        252,
+        6
+      ],
+      "accounts": [
+        {
+          "name": "signal",
+          "writable": true
+        },
+        {
+          "name": "authority",
+          "signer": true
+        }
+      ],
+      "args": [
+        {
+          "name": "outcome",
+          "type": "i8"
+        }
+      ]
+    },
+    {
+      "name": "register_signal",
+      "docs": [
+        "注册一条信号（只存哈希 + 关键字段，保证可追溯）"
+      ],
+      "discriminator": [
+        221,
+        218,
+        250,
+        38,
+        191,
+        231,
+        7,
+        65
+      ],
+      "accounts": [
+        {
+          "name": "signal",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  115,
+                  105,
+                  103,
+                  110,
+                  97,
+                  108
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "authority"
+              },
+              {
+                "kind": "arg",
+                "path": "signal_hash"
+              }
+            ]
+          }
+        },
+        {
+          "name": "authority",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "signal_hash",
+          "type": {
+            "array": [
+              "u8",
+              32
+            ]
+          }
+        },
+        {
+          "name": "signal_type",
+          "type": "u8"
+        },
+        {
+          "name": "direction",
+          "type": "i8"
+        },
+        {
+          "name": "confidence_bps",
+          "type": "u16"
+        }
+      ]
+    }
+  ],
+  "accounts": [
+    {
+      "name": "FollowRecord",
+      "discriminator": [
+        184,
+        58,
+        38,
+        54,
+        57,
+        20,
+        186,
+        26
+      ]
+    },
+    {
+      "name": "SignalRecord",
+      "discriminator": [
+        32,
+        240,
+        214,
+        122,
+        207,
+        184,
+        220,
+        121
+      ]
+    }
+  ],
+  "types": [
+    {
+      "name": "FollowRecord",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "signal",
+            "type": "pubkey"
+          },
+          {
+            "name": "user",
+            "type": "pubkey"
+          },
+          {
+            "name": "ts",
+            "type": "i64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "SignalRecord",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "authority",
+            "type": "pubkey"
+          },
+          {
+            "name": "signal_hash",
+            "type": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          },
+          {
+            "name": "signal_type",
+            "type": "u8"
+          },
+          {
+            "name": "direction",
+            "type": "i8"
+          },
+          {
+            "name": "confidence_bps",
+            "type": "u16"
+          },
+          {
+            "name": "followers",
+            "type": "u32"
+          },
+          {
+            "name": "outcome",
+            "type": "i8"
+          },
+          {
+            "name": "created_at",
+            "type": "i64"
+          }
+        ]
+      }
+    }
+  ]
+}

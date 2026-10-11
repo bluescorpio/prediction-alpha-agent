@@ -1,5 +1,6 @@
 import { headers } from "next/headers";
 import type { IntelCard, Signal } from "@paa/shared";
+import { FollowButton } from "../components/FollowButton";
 import { WalletPanel } from "../components/WalletPanel";
 
 function matchIntelCard(signal: Signal, intelCards: IntelCard[]): IntelCard | undefined {
@@ -10,7 +11,9 @@ function matchIntelCard(signal: Signal, intelCards: IntelCard[]): IntelCard | un
   );
 }
 
-async function loadFeed(): Promise<{ signals: Signal[]; intelCards: IntelCard[] }> {
+type ListedSignal = Signal & { onchain?: { signalPda?: string } };
+
+async function loadFeed(): Promise<{ signals: ListedSignal[]; intelCards: IntelCard[] }> {
   const headerList = await headers();
   const host = headerList.get("x-forwarded-host") ?? headerList.get("host");
   if (!host) {
@@ -23,7 +26,7 @@ async function loadFeed(): Promise<{ signals: Signal[]; intelCards: IntelCard[] 
   if (!response.ok) {
     throw new Error(`读取 /api/signals 失败：${response.status}`);
   }
-  return (await response.json()) as { signals: Signal[]; intelCards: IntelCard[] };
+  return (await response.json()) as { signals: ListedSignal[]; intelCards: IntelCard[] };
 }
 
 export default async function Home() {
@@ -58,6 +61,7 @@ export default async function Home() {
                   <p>riskNotes：{card.riskNotes}</p>
                 </>
               ) : null}
+              {signal.onchain?.signalPda ? <FollowButton signalPda={signal.onchain.signalPda} /> : null}
             </article>
           );
         })
