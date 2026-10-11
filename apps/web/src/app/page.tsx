@@ -1,6 +1,6 @@
 import { headers } from "next/headers";
 import type { IntelCard, Signal } from "@paa/shared";
-import { FollowButton } from "../components/FollowButton";
+import { SignalBoard, type BoardSignal } from "../components/SignalBoard";
 import { WalletPanel } from "../components/WalletPanel";
 
 function matchIntelCard(signal: Signal, intelCards: IntelCard[]): IntelCard | undefined {
@@ -12,6 +12,22 @@ function matchIntelCard(signal: Signal, intelCards: IntelCard[]): IntelCard | un
 }
 
 type ListedSignal = Signal & { onchain?: { signalPda?: string } };
+
+function toBoardSignals(signals: ListedSignal[], intelCards: IntelCard[]): BoardSignal[] {
+  return signals.map((signal) => {
+    const card = matchIntelCard(signal, intelCards);
+    return {
+      id: signal.id,
+      question: signal.eventRef.question,
+      direction: signal.direction,
+      confidence: signal.confidence,
+      evidence: signal.evidence,
+      suggestedAction: card?.suggestedAction,
+      riskNotes: card?.riskNotes,
+      signalPda: signal.onchain?.signalPda,
+    };
+  });
+}
 
 async function loadFeed(): Promise<{ signals: ListedSignal[]; intelCards: IntelCard[] }> {
   const headerList = await headers();
@@ -36,35 +52,10 @@ export default async function Home() {
       <h1>Prediction Alpha Agent</h1>
       <p>把预测市场与永续定价的分歧，变成可执行、可验证的信号。</p>
       <WalletPanel />
-      <h2>信号列表</h2>
       {signals.length === 0 ? (
         <p style={{ color: "#888" }}>暂无数据，先运行 pnpm signals 与 pnpm narrate</p>
       ) : (
-        signals.map((signal) => {
-          const card = matchIntelCard(signal, intelCards);
-          return (
-            <article
-              key={signal.id}
-              style={{ border: "1px solid #ddd", borderRadius: 8, padding: 16, marginBottom: 16 }}
-            >
-              <h3 style={{ marginTop: 0 }}>{signal.eventRef.question}</h3>
-              <p>direction：{signal.direction}</p>
-              <p>confidence：{signal.confidence}</p>
-              <ul>
-                {signal.evidence.map((item, index) => (
-                  <li key={`${signal.id}-${index}`}>{item}</li>
-                ))}
-              </ul>
-              {card ? (
-                <>
-                  <p>suggestedAction：{card.suggestedAction}</p>
-                  <p>riskNotes：{card.riskNotes}</p>
-                </>
-              ) : null}
-              {signal.onchain?.signalPda ? <FollowButton signalPda={signal.onchain.signalPda} /> : null}
-            </article>
-          );
-        })
+        <SignalBoard signals={toBoardSignals(signals, intelCards)} />
       )}
     </main>
   );
