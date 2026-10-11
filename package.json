@@ -7,6 +7,7 @@
     "signals": "pnpm --filter @paa/signals exec tsx src/index.ts",
     "narrate": "pnpm --filter @paa/narrator exec tsx src/cli.ts",
     "web": "pnpm --filter @paa/web dev",
+    "seed": "tsx scripts/seed-signals.ts",
     "dev": "pnpm -r --parallel dev",
     "typecheck": "tsc --noEmit"
   },
@@ -20,6 +21,7 @@
     "chai": "4.5.0",
     "mocha": "10.7.3",
     "ts-mocha": "10.0.0",
+    "tsx": "^4.19.0",
     "typescript": "^5.6.0"
   }
 }
