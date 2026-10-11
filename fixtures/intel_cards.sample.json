@@ -1,0 +1,59 @@
+[
+  {
+    "event": "样例：BTC 站上 100000 美元",
+    "marketRef": {
+      "provider": "polymarket",
+      "marketId": "sample-btc-100k-yes"
+    },
+    "signalType": "cross_market_divergence",
+    "direction": "pm_overpriced",
+    "confidence": 1,
+    "evidence": [
+      "市场隐含概率 0.720",
+      "模型概率 0.005",
+      "z=8.94"
+    ],
+    "historicalAnalog": "模板回退：输入未提供历史类比，此处不编造。",
+    "suggestedAction": "仅供研究：对照 evidence 复核该信号是否仍成立。不构成投资建议。",
+    "riskNotes": "这是模板化文案，不是模型解读。简化模型、样例价格和结算条件都可能使结论失效。不构成投资建议。",
+    "generatedAt": 1791461562335
+  },
+  {
+    "event": "样例：SOL 站上 200 美元",
+    "marketRef": {
+      "provider": "polymarket",
+      "marketId": "sample-sol-200-yes"
+    },
+    "signalType": "cross_market_divergence",
+    "direction": "pm_overpriced",
+    "confidence": 1,
+    "evidence": [
+      "市场隐含概率 0.410",
+      "模型概率 0.039",
+      "z=4.63"
+    ],
+    "historicalAnalog": "模板回退：输入未提供历史类比，此处不编造。",
+    "suggestedAction": "仅供研究：对照 evidence 复核该信号是否仍成立。不构成投资建议。",
+    "riskNotes": "这是模板化文案，不是模型解读。简化模型、样例价格和结算条件都可能使结论失效。不构成投资建议。",
+    "generatedAt": 1791461562342
+  },
+  {
+    "event": "样例：ETH 站上 4000 美元",
+    "marketRef": {
+      "provider": "polymarket",
+      "marketId": "sample-eth-4000-yes"
+    },
+    "signalType": "cross_market_divergence",
+    "direction": "pm_overpriced",
+    "confidence": 1,
+    "evidence": [
+      "市场隐含概率 0.380",
+      "模型概率 0.002",
+      "z=4.72"
+    ],
+    "historicalAnalog": "模板回退：输入未提供历史类比，此处不编造。",
+    "suggestedAction": "仅供研究：对照 evidence 复核该信号是否仍成立。不构成投资建议。",
+    "riskNotes": "这是模板化文案，不是模型解读。简化模型、样例价格和结算条件都可能使结论失效。不构成投资建议。",
+    "generatedAt": 1791461562348
+  }
+]

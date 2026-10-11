@@ -1,0 +1,68 @@
+[
+  {
+    "id": "sample-btc-100k-yes:1791461229423",
+    "type": "cross_market_divergence",
+    "direction": "pm_overpriced",
+    "confidence": 1,
+    "eventRef": {
+      "provider": "polymarket",
+      "marketId": "sample-btc-100k-yes",
+      "question": "样例：BTC 站上 100000 美元"
+    },
+    "evidence": [
+      "市场隐含概率 0.720",
+      "模型概率 0.005",
+      "z=8.94"
+    ],
+    "createdAt": 1791461229423,
+    "onchain": {
+      "signalPda": "2EkfSKAJo7HnBMMfWXkvPvMMdLsgn1hr9eRzJkFfFkBq",
+      "authority": "dUA9hhev4U31KrzLeFfH72GdvFXA348YASNJKpg7t9q",
+      "signalHashHex": "758e2991d2cc85aef95e8f1507e961170bb4956d222612cb18a3537cf536abd8"
+    }
+  },
+  {
+    "id": "sample-sol-200-yes:1791461229423",
+    "type": "cross_market_divergence",
+    "direction": "pm_overpriced",
+    "confidence": 1,
+    "eventRef": {
+      "provider": "polymarket",
+      "marketId": "sample-sol-200-yes",
+      "question": "样例：SOL 站上 200 美元"
+    },
+    "evidence": [
+      "市场隐含概率 0.410",
+      "模型概率 0.039",
+      "z=4.63"
+    ],
+    "createdAt": 1791461229423,
+    "onchain": {
+      "signalPda": "992Kb7kV1AFaUSQryYi9jJ6CFCPc51VSdLYfwga4Tbfj",
+      "authority": "dUA9hhev4U31KrzLeFfH72GdvFXA348YASNJKpg7t9q",
+      "signalHashHex": "5f6edf252d505617c55386a7c752d14b3749bc84a183f774f08739cf59f50a8a"
+    }
+  },
+  {
+    "id": "sample-eth-4000-yes:1791461229423",
+    "type": "cross_market_divergence",
+    "direction": "pm_overpriced",
+    "confidence": 1,
+    "eventRef": {
+      "provider": "polymarket",
+      "marketId": "sample-eth-4000-yes",
+      "question": "样例：ETH 站上 4000 美元"
+    },
+    "evidence": [
+      "市场隐含概率 0.380",
+      "模型概率 0.002",
+      "z=4.72"
+    ],
+    "createdAt": 1791461229423,
+    "onchain": {
+      "signalPda": "2FKFudczKn6X9FXhzCHq6HjxFnH7stX93vkYNNXj8DKk",
+      "authority": "dUA9hhev4U31KrzLeFfH72GdvFXA348YASNJKpg7t9q",
+      "signalHashHex": "28fdb5ab87a3a35e9c55003f219af8ebd32f7e97686244eb9b5ec8e113057b72"
+    }
+  }
+]
